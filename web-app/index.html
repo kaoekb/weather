@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Client</title>
+</head>
+<body>
+    <h1>Узнать погоду в Санкт-Петербурге</h1>
+    <button onclick="getWeather()">Узнать погоду</button>
+    <p id="weather"></p>
+
+    <script>
+        const socket = new WebSocket('ws://localhost:8080/ws');
+
+        socket.onopen = function() {
+            console.log('Connected to the WebSocket server');
+        };
+
+        socket.onmessage = function(event) {
+            document.getElementById('weather').textContent = event.data;
+        };
+
+        socket.onerror = function(error) {
+            console.log('WebSocket Error:', error);
+        };
+
+        socket.onclose = function() {
+            console.log('WebSocket connection closed');
+        };
+
+        function getWeather() {
+            socket.send("weather");
+        }
+    </script>
+</body>
+</html>

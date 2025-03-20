@@ -1,0 +1,40 @@
+# # Используем официальный образ Python
+# FROM python:3.10-slim
+
+# # Устанавливаем рабочую директорию
+# WORKDIR /app
+
+# # Копируем файлы проекта в контейнер
+# COPY . .
+
+# # Устанавливаем зависимости
+# RUN pip install --no-cache-dir -r ./python-bot/requirements.txt
+
+# # Открываем порт для бота (по необходимости)
+# EXPOSE 80
+
+# # Запускаем Python-бота
+# CMD ["python", "python-bot/bot.py"]
+
+
+
+# Используем официальный образ Python
+FROM python:3.10-slim
+
+# Устанавливаем рабочую директорию
+WORKDIR /app
+
+# Копируем файл requirements.txt в контейнер
+COPY python-bot/requirements.txt ./python-bot/requirements.txt
+
+# Устанавливаем зависимости
+RUN pip install --no-cache-dir -r ./python-bot/requirements.txt
+
+# Копируем все файлы проекта в контейнер
+COPY . .
+
+# Открываем порт для бота (по необходимости)
+EXPOSE 80
+
+# Запускаем Python-бота
+CMD ["python", "python-bot/bot.py"]
